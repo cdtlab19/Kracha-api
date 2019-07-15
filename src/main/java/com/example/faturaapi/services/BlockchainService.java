@@ -190,10 +190,10 @@ public class BlockchainService {
             throw new ChannelException("Invalid arguments at channel creation: " + e.getMessage());
         } catch (NetworkConfigurationException e) {
             e.printStackTrace();
-            throw new ChannelException("Fatal network error: " + e.getMessage());
+            throw new ChannelException("Fatal network error : " + e.getMessage());
         } catch (TransactionException e) {
             e.printStackTrace();
-            throw new ChannelException("Transaction error: " + e.getMessage());
+            throw new ChannelException("Transaction error : " + e.getMessage());
         }
 
         if (channel == null) {
