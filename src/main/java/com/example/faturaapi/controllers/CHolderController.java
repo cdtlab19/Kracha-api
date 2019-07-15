@@ -26,7 +26,7 @@ public class CHolderController {
     @ApiOperation(value="Create a card holder")
     @ApiResponses(value={@ApiResponse(code=200, message = "Sucesso")})
     @PostMapping(path="/")
-    public ResponseEntity<Response> create(@RequestBody CHolderDTO objDto) {
+    public ResponseEntity<List<Response>> create(@RequestBody CHolderDTO objDto) {
         String[] args={objDto.getName(),objDto.getCpf(),objDto.getSex(),objDto.getBirthday()};
         List<Response> response = service.InvokeCHolder(args,"CreateCHolder");
         return new ResponseEntity<>(response , HttpStatus.CREATED);
@@ -34,7 +34,7 @@ public class CHolderController {
 
     @ApiOperation(value="Update a card holder")
     @PutMapping(path="/{cpf}")
-    public ResponseEntity<Response> update(@PathVariable String cpf, @RequestBody CHolderUpdateDTO objDto) {
+    public ResponseEntity<List<Response>> update(@PathVariable String cpf, @RequestBody CHolderUpdateDTO objDto) {
         String[] args={cpf,objDto.getName(),objDto.getSex(),objDto.getBirthday()};
         List<Response> response = service.InvokeCHolder(args, "UpdateCHolder");
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -42,14 +42,14 @@ public class CHolderController {
 
     @ApiOperation(value="Delete a card holder")
     @DeleteMapping(path="/{cpf}")
-    public ResponseEntity<Response> delete(@PathVariable String cpf) {
+    public ResponseEntity<List<Response>> delete(@PathVariable String cpf) {
         List<Response> response = service.InvokeCHolder(new String[] {cpf}, "UpdateCHolder");
         return new ResponseEntity<>(response , HttpStatus.OK );
     }
 
     @ApiOperation(value="Find a card holder")
     @GetMapping(path="/{cpf}")
-    public ResponseEntity<Response> find(@PathVariable String cpf) {
+    public ResponseEntity<List<Response>> find(@PathVariable String cpf) {
         List<Response> response = service.QueryCHolder(new String[] {cpf}, "GetCHolder");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class CHolderController {
     @ApiOperation(value="Find ALL card holder")
     @GetMapping(path="/")
     // public ResponseEntity<List<?>> findAll() {
-    public ResponseEntity<Response> findAll() {
+    public ResponseEntity<List<Response>> findAll() {
         List<Response> response = service.QueryCHolder(new String[] {""}, "AllCHolder");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

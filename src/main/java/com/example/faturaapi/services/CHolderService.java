@@ -14,7 +14,7 @@ public class CHolderService {
     private BlockchainService blockchainService;
 
     public List<Response> QueryCHolder(String [] args, String method) {
-       // return blockchainService.query("coffee", method, "github.com/cdtlab19/coffee-chaincode/entry/coffee", args);
+        //return blockchainService.query("coffee", method, "github.com/cdtlab19/coffee-chaincode/entry/coffee", args);
     }
 
     public List<io.swagger.models.Response> InvokeCHolder(String[] args, String method) throws CHolderException {
