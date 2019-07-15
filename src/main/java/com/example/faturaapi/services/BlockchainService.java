@@ -34,7 +34,7 @@ import java.util.List;
 public class BlockchainService {
 
     private ObjectMapper mapper = new ObjectMapper();
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private Logger LOGGER = LoggerFactory.getLogger(this.getClass()); //messages
 
     private String privateKey_path;
     private String certificate_path;
@@ -91,6 +91,7 @@ public class BlockchainService {
         LOGGER.info("Checking Identity...");
 
         StoreEnrollement enrollment = new StoreEnrollement(loadPrivateKey(privateKey_path), loadCertificate(certificate_path));
+        //make it so other organization can be added
         Identity identity = new Identity("adminorg1", "Org1", "Org1MSP", enrollment);
         LOGGER.info("Identity checked {}.", identity.getName());
         return "adminorg1";
