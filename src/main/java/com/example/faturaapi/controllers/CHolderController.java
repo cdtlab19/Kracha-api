@@ -2,12 +2,13 @@ package com.example.faturaapi.controllers;
 
 import com.example.faturaapi.dto.CHolderDTO;
 import com.example.faturaapi.dto.CHolderUpdateDTO;
+import com.example.faturaapi.responses.Response;
 import com.example.faturaapi.services.CHolderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.models.Response;
+import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class CHolderController {
     @ApiOperation(value="Create a card holder")
     @ApiResponses(value={@ApiResponse(code=200, message = "Sucesso")})
     @PostMapping(path="/")
-    public ResponseEntity<List<Response>> create(@RequestBody CHolderDTO objDto) {
+    public ResponseEntity<List<Response>> create(@RequestBody CHolderDTO objDto) throws TransactionException {
         String[] args={objDto.getName(),objDto.getCpf(),objDto.getSex(),objDto.getBirthday()};
         List<Response> response = service.InvokeCHolder(args,"CreateCHolder");
         return new ResponseEntity<>(response , HttpStatus.CREATED);
@@ -34,7 +35,7 @@ public class CHolderController {
 
     @ApiOperation(value="Update a card holder")
     @PutMapping(path="/{cpf}")
-    public ResponseEntity<List<Response>> update(@PathVariable String cpf, @RequestBody CHolderUpdateDTO objDto) {
+    public ResponseEntity<List<Response>> update(@PathVariable String cpf, @RequestBody CHolderUpdateDTO objDto) throws TransactionException {
         String[] args={cpf,objDto.getName(),objDto.getSex(),objDto.getBirthday()};
         List<Response> response = service.InvokeCHolder(args, "UpdateCHolder");
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -42,8 +43,8 @@ public class CHolderController {
 
     @ApiOperation(value="Delete a card holder")
     @DeleteMapping(path="/{cpf}")
-    public ResponseEntity<List<Response>> delete(@PathVariable String cpf) {
-        List<Response> response = service.InvokeCHolder(new String[] {cpf}, "UpdateCHolder");
+    public ResponseEntity<List<Response>> delete(@PathVariable String cpf) throws TransactionException {
+        List<Response> response = service.InvokeCHolder(new String[] {cpf}, "DeleteCHolder");
         return new ResponseEntity<>(response , HttpStatus.OK );
     }
 

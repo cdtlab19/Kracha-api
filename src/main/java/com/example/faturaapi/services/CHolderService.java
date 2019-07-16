@@ -1,7 +1,7 @@
 package com.example.faturaapi.services;
 
-import com.example.faturaapi.services.exceptions.CHolderException;
-import io.swagger.models.Response;
+import com.example.faturaapi.responses.Response;
+import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +11,14 @@ import java.util.List;
 public class CHolderService {
 
     @Autowired
-    private BlockchainService blockchainService;
+    BlockchainService blockchainService;
 
     public List<Response> QueryCHolder(String [] args, String method) {
-        //return blockchainService.query("coffee", method, "github.com/cdtlab19/coffee-chaincode/entry/coffee", args);
+        return blockchainService.query("cardholder", method, "https://github.com/cdtlab19/kracha/entry/cardholder", args);
     }
 
-    public List<io.swagger.models.Response> InvokeCHolder(String[] args, String method) throws CHolderException {
-        //return blockchainService.invoke("coffee", method, "github.com/cdtlab19/coffee-chaincode/entry/coffee", args);
+    public List<Response> InvokeCHolder(String[] args, String method) throws TransactionException {
+        return blockchainService.invoke("cardholder", method, "https://github.com/cdtlab19/kracha/entry/cardholder", args);
     }
 
     public BlockchainService getBlockchainService() {
